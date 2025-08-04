@@ -2,7 +2,7 @@
 
 namespace Orangecat\CspWhitelist\Plugin;
 
-use Orangecat\CspWhitelist\Helper\Configuration;
+use Orangecat\CspWhitelist\Helper\Data;
 use Magento\Csp\Api\Data\PolicyInterface;
 use Magento\Csp\Model\Collector\CspWhitelistXmlCollector;
 use Magento\Framework\Config\DataInterface as ConfigReader;
@@ -14,8 +14,8 @@ class CspWhitelist
     /** @var ConfigReader */
     private $configReader;
 
-    /** @var Configuration */
-    private $configuration;
+    /** @var Data */
+    private $helper;
 
     /** @var FetchPolicy */
     private $fetchPolicy;
@@ -24,16 +24,17 @@ class CspWhitelist
      * Constructor
      *
      * @param ConfigReader $configReader
-     * @param Configuration $configuration
+     * @param Data $helper
      * @param FetchPolicyFactory $fetchPolicy
      */
     public function __construct(
-        ConfigReader $configReader,
-        Configuration $configuration,
+        ConfigReader       $configReader,
+        Data               $helper,
         FetchPolicyFactory $fetchPolicy
-    ) {
+    )
+    {
         $this->configReader = $configReader;
-        $this->configuration = $configuration;
+        $this->helper = $helper;
         $this->fetchPolicy = $fetchPolicy;
     }
 
@@ -48,13 +49,14 @@ class CspWhitelist
      */
     public function aroundCollect(
         CspWhitelistXmlCollector $subject,
-        callable $proceed,
-        array $defaultPolicies = []
-    ): array {
-        if (!$this->configuration->isEnabled()) {
+        callable                 $proceed,
+        array                    $defaultPolicies = []
+    ): array
+    {
+        if (!$this->helper->isEnabled()) {
             return $proceed($defaultPolicies);
         }
-        $customPolicies = $this->configuration->getPolicies();
+        $customPolicies = $this->helper->getPolicies();
         $policies = $defaultPolicies;
         $config = $this->configReader->get(null);
         foreach ($config as $policyId => $values) {

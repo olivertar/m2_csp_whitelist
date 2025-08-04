@@ -1,6 +1,6 @@
 # M2 CSP Whitelist
 
-This module has been developed for Magento > 2.4.6
+This module has been developed for Magento >= 2.4.8
 
 ## Installation
 

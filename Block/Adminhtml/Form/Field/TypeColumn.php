@@ -21,9 +21,10 @@ class TypeColumn extends Select
      */
     public function __construct(
         Context $context,
-        Type $type,
-        array $data = []
-    ) {
+        Type    $type,
+        array   $data = []
+    )
+    {
         $this->type = $type;
         parent::__construct($context, $data);
     }

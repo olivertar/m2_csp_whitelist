@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Orangecat\CspWhitelist\Block\Adminhtml\Form\Field\CspHeader;
+
+/** @var Escaper $escaper */
+/** @var CspHeader $block */
+?>
+
+<tr class="config" id="row_<?= $escaper->escapeHtmlAttr($block->getData('html_id')) ?>">
+    <td colspan="3" class="value">
+        <br/>
+        <h2>
+            <strong>
+                <?= $escaper->escapeHtml($block->getData('label')) ?>
+            </strong>
+        </h2>
+        <?php if ($block->isHeaderIsTooBig()): ?>
+            <h2 class="message message-error config">
+                <strong>
+                    <?= $escaper->escapeHtml(__('Warning! Header size exceeds limits! Header is truncated!')) ?>
+                </strong>
+            </h2>
+        <?php endif; ?>
+
+        <div class="config">
+            <br>
+            <textarea rows="15" cols="50" readonly wrap="soft"><?= $escaper->escapeHtml($block->getCspHeader()) ?>
+            </textarea>
+        </div>
+
+        <div class="message config">
+            <p>
+                <?= $escaper->escapeHtml(__('Approximate header size (Bytes):')) ?>
+                <?= $escaper->escapeHtml($block->getCurrentHeaderSize()) ?>
+            </p>
+            <?php if (!$block->getConfig()->isHeaderSplittingEnabled()): ?>
+                <p>
+                    <?= $escaper->escapeHtml(__('Usage of maximum size:')) ?>
+                    <strong>
+                        <?= /** @noEscape */
+                        (int)(100 * $block->getCurrentHeaderSize() / $block->getConfig()->getMaxHeaderSize()) ?>%
+                    </strong>
+                </p>
+            <?php endif; ?>
+        </div>
+    </td>
+</tr>

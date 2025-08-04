@@ -1,0 +1,7 @@
+"Approximate header size (Bytes)","Tamaño aproximado del encabezado (Bytes)"
+"Usage of maximum size","Uso del tamaño máximo"
+"Current CSP Header","Encabezado CSP actual"
+"Maximum Header Size in Bytes","Tamaño máximo del encabezado en Bytes"
+"Enable Header Splitting for CSP","Habilitar división de encabezado para CSP"
+"Content Security Policy","Política de seguridad de contenido"
+"Warning! Header size exceeds limits! Header is truncated!","¡Advertencia! ¡El tamaño del encabezado supera los límites! ¡El encabezado ha sido truncado!"
